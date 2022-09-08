@@ -72,7 +72,6 @@ export class Final extends Component {
       }
 
       this.setState({ data: this.state.data })
- 
       document.getElementById("firstName").value = "";
       document.getElementById("lastName").value = "";
       document.getElementById("email").value = "";
@@ -92,6 +91,7 @@ export class Final extends Component {
     }
 
   handleDelete = (event) => {
+    if(!this.clickUpdate){
     console.log("handle delete ran")
     console.log(this.state.data[event.target.value])
     let a = event.target.value;
@@ -104,6 +104,9 @@ export class Final extends Component {
     this.row_id-=1
     this.setState({data: this.state.data})
     console.log("after delete and for", this.state.data)
+  }else{
+    alert("Complete update action first")
+  }
   }
 
   handleUpdate = (event) => {
@@ -117,8 +120,12 @@ export class Final extends Component {
     document.getElementById("password").value = this.state.data[a].firstName;
   }
 
-  //document.getElementById({this.row_id}).addEventListener("click", handleUpdate);
-
+  handleClear = () =>{
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+  }
 
   render() {
     return (
@@ -180,7 +187,7 @@ export class Final extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-2">
+              <div className="mx-2">
                 <button
                   type="submit"
                   className="btn btn-primary"
@@ -189,13 +196,22 @@ export class Final extends Component {
                   Submit
                 </button>
               </div>
-              <div className="col-md-2">
+              <div className="mx-2">
                 <button
                   type="delete"
                   className="btn btn-danger"
                   onClick={this.handleLastDelete}
                 >
                   Delete Last Element
+                </button>
+              </div>
+              <div className="mx-2">
+                <button
+                  type="clear"
+                  className="btn btn-success"
+                  onClick={this.handleClear}
+                >
+                  Clear
                 </button>
               </div>
             </div>
